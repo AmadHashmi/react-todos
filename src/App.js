@@ -1,35 +1,39 @@
+import React, { useState } from "react";
 import "./App.css";
-import TodoRowItem from "./components/TodoRowItem";
+import TodoTable from "./components/TodoTable";
 
 function App() {
-  const todos = [
+  // const todos = [
+  //   { rowNumber: 1, rowDescription: "Feed puppy", rowAssigned: "User one" },
+  //   { rowNumber: 2, rowDescription: "Water plants", rowAssigned: "User two" },
+  //   { rowNumber: 3, rowDescription: "Make dinner", rowAssigned: "User one" },
+  // ];
+
+  const [todos, setTodos] = useState([
     { rowNumber: 1, rowDescription: "Feed puppy", rowAssigned: "User one" },
     { rowNumber: 2, rowDescription: "Water plants", rowAssigned: "User two" },
     { rowNumber: 3, rowDescription: "Make dinner", rowAssigned: "User one" },
-  ];
+  ]);
+  const addTodo = () => {
+    if (todos.length > 0) {
+      const newTodo = {
+        rowNumber: todos.length + 1,
+        rowDescription: "New Todo",
+        rowAssigned: "User Three",
+      };
+
+      setTodos((array) => [newTodo, ...array]);
+    }
+  };
   return (
     <div className="mt-5 container">
       <div className="card">
         <div className="card-header">Your todos</div>
         <div className="card-body">
-          <table className="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Description</th>
-                <th scope="col">Assigned</th>
-              </tr>
-            </thead>
-            <tbody>
-              {todos.map((todo) => (
-                <TodoRowItem
-                  rowNumber={todo.rowNumber}
-                  rowDescription={todo.rowDescription}
-                  rowAssigned={todo.rowAssigned}
-                />
-              ))}
-            </tbody>
-          </table>
+          <TodoTable todos={todos} />
+          <button className="btn btn-primary" onClick={addTodo}>
+            Add new todo
+          </button>
         </div>
       </div>
     </div>
