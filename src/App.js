@@ -22,7 +22,7 @@ function App() {
         rowAssigned: "User Three",
       };
 
-      setTodos((array) => [newTodo, ...array]);
+      setTodos((array) => [...array, newTodo]);
     }
   };
   return (
